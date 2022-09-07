@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
-import axios from "axios"
+import axios from "axios";
 import Lists from "./Lists";
 
 const CreateItem = () => {
@@ -17,63 +17,80 @@ const CreateItem = () => {
 
   const addUpdate = () => {
     if(isUpdating===''){
+      //post
       axios.post('http://localhost:4000/items', {text})
       .then((res) => {
-        console.log(res.data.data.items)
+        console.log(res.data)
         setText('')
       })
       .catch((err) => console.log(err))
-    } else{
+    }else{
       setUpdating('')
     }
   }
+  //get
   useEffect(() =>{
     axios.get('http://localhost:4000/items')
     .then((res) => setTodo(res.data.data.items))
     .catch((err) => console.log(err))
   })
-
-
-  const deleteToDo = (_id) =>{ 
-    
-  }
   
+  //delete
+  const deleteToDo = (_id) => { 
+    console.log(_id)
+    axios.delete(`http://localhost:4000/items/deleteitem/${_id}`)
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch((err) => console.log(err))
+  }
 
+  const input ={
+    borderColor: "#249225",
+  }
 
   return (
     <div>
       <Container
         style={{
-          backgroundColor: "",
+          backgroundColor: "#ABD5AB",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
-          width: "100%",
+          width: "30%",
           maxWidth: "100%",
+          height:"100%",
           marginTop: "1rem",
-          // border: "1px solid red",
+          border: "1px solid #249225",
         }}
       >
-        <div style={{ marginTop: "3rem" }}>
+        <div style={{ marginTop: "1rem" }}>
+          <h1 style={{ color: "#0C3823"}}>TODOS</h1>
+          <hr style={{ color: "1px solid #249225"  }}/>
+          </div>
+        <div style={{ marginTop: "2rem" }}>
           <Row className="align-items-center">
-            <Col xs="auto">
-                <InputGroup className="mb-3">
-                  <Form.Control
+            <Col xs="auto" >
+                <InputGroup style={{minWidth: "89%"}}>
+                  <Form.Control  style={input} 
                   onChange={(e) => setText(e.target.value)}
                   value={text}
                     placeholder="Add a todo"
                     aria-label="Add a todo"
-                    aria-describedby="basic-addon2"
                   />
-                  <Button onClick={addUpdate} type= 'submit' variant="outline-secondary" id="button-addon2">
-                    +
-                  </Button>
+                  <Button onClick={addUpdate} type= 'submit' variant="outline-success" >
+                  +
+                </Button>
                 </InputGroup>
+                
             </Col>
           </Row>
         </div>
         <div>
-          {todo.map(item => <Lists key={item?._id} text={item?.text} remove={deleteToDo(item?._id)}/>)}
+          {todo.map(item => <Lists 
+          key={item?._id}
+          text={item?.text}
+          remove={()=>deleteToDo(item?._id)} />)}
         </div>
         
       </Container>
