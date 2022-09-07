@@ -68,7 +68,7 @@ const CreateItem = () => {
           <h1 style={{ color: "#0C3823"}}>TODOS</h1>
           <hr style={{ color: "1px solid #249225"  }}/>
           </div>
-        <div style={{ marginTop: "2rem" }}>
+        <div style={{ margin: "2rem" }}>
           <Row className="align-items-center">
             <Col xs="auto" >
                 <InputGroup style={{minWidth: "89%"}}>

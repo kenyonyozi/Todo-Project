@@ -15,13 +15,13 @@ const Lists = ({ text, remove }) => {
         <Col xs={1}>
             <div style={{  cursor: "pointer" }}>
               <i
-                class="bi bi-check-circle"
+                className="bi bi-check-circle"
                 onClick={remove}
                 style={{ color: "", marginLeft: "0rem" }}
               ></i>
             </div>
           </Col>
-          <Col xs={9}>
+          <Col xs={7}>
             <Card.Text style={{ fontSize: "medium", color: "#0C3823" }}>
               {text}
               
@@ -30,9 +30,9 @@ const Lists = ({ text, remove }) => {
           <Col xs={1}>
             <div style={{ display: "flex" , cursor: "pointer" }}>
               <i
-                class="bi bi-trash-fill"
+                className="bi bi-trash-fill"
                 onClick={remove}
-                style={{ color: "red", marginLeft: "1rem" }}
+                style={{ color: "red", marginLeft: "2rem" }}
               ></i>
             </div>
           </Col>
