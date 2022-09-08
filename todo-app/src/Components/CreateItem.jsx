@@ -18,7 +18,7 @@ const CreateItem = () => {
   const addUpdate = () => {
     if(isUpdating===''){
       //post
-      axios.post('http://app-todobackend.herokuapp.com/items', {text})
+      axios.post('https://app-todobackend.herokuapp.com/items', {text})
       .then((res) => {
         console.log(res.data)
         setText('')
@@ -30,7 +30,7 @@ const CreateItem = () => {
   }
   //get
   useEffect(() =>{
-    axios.get('http://app-todobackend.herokuapp.com/items')
+    axios.get('https://app-todobackend.herokuapp.com/items')
     .then((res) => setTodo(res.data.data.items))
     .catch((err) => console.log(err))
   })
@@ -38,7 +38,7 @@ const CreateItem = () => {
   //delete
   const deleteToDo = (_id) => { 
     console.log(_id)
-    axios.delete(`http://app-todobackend.herokuapp.com/items/deleteitem/${_id}`)
+    axios.delete(`https://app-todobackend.herokuapp.com/items/deleteitem/${_id}`)
     .then((res) => {
       console.log(res.data)
     })
