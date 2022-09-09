@@ -24,7 +24,7 @@ const CreateItem = () => {
     if (isUpdating === "") {
       //post
       axios
-        .post("http://localhost:4000/items", { text, done })
+        .post("https://app-todobackend.herokuapp.com/items", { text, done })
         .then((res) => {
           if (
             res.data.message &&
@@ -60,7 +60,7 @@ const CreateItem = () => {
   //get
   useEffect(() => {
     axios
-      .get("http://localhost:4000/items")
+      .get("https://app-todobackend.herokuapp.com/items")
       .then((res) => setTodo(res.data.data.items))
       .catch((err) => console.log(err));
   });
@@ -68,7 +68,7 @@ const CreateItem = () => {
   //delete
   const deleteToDo = (_id) => {
     axios
-      .delete(`http://localhost:4000/items/deleteitem/${_id}`)
+      .delete(`https://app-todobackend.herokuapp.com/items/deleteitem/${_id}`)
       .then((res) => {
         if (
           res.data.message &&
@@ -107,7 +107,7 @@ const CreateItem = () => {
     // setDone(!done);
     // console.log(complete)
     axios
-      .put(`http://localhost:4000/items/${_id}`, { done })
+      .put(`https://app-todobackend.herokuapp.com/items/${_id}`, { done })
       .then((res) => {
         if (
           res.data.message &&
