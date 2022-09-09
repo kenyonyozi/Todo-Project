@@ -14,21 +14,7 @@ const Lists = ({ text, remove ,update , done}) => {
         <Row className="align-items-center">
         <Col xs={1}>
             <div style={{  cursor: "pointer" }}>
-              
-             { done ?
-             <i
-                className="bi bi-check-circle" 
-                onClick={update}
-                style={{ color: "orange", marginLeft: "0rem" }}
-              ></i>
-              :
-
-               <i
-                className="bi bi-check-circle" 
-                onClick={update}
-                style={{ color: "", marginLeft: "0rem" }}
-              ></i>
-             }
+            <input type = "checkbox" onClick={update} defaultChecked={done} /> 
 
             </div>
           </Col>
