@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
 const Lists = ({ text, remove ,update , done}) => {
   return (
@@ -13,9 +14,9 @@ const Lists = ({ text, remove ,update , done}) => {
       <Card.Body style={{paddingTop:"0.5rem"}}>
         <Row className="align-items-center">
         <Col xs={1}>
-            <div style={{  cursor: "pointer" }}>
-            <input type = "checkbox" onClick={update} defaultChecked={done} /> 
-
+            <div className= "input" style={{  cursor: "pointer" }}>
+            <input  type = "checkbox" onClick={update} defaultChecked={done} /> 
+            <span className="checkmark"></span>
             </div>
           </Col>
           <Col xs={7}>

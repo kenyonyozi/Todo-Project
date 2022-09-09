@@ -7,3 +7,6 @@
     outline: none;
     box-shadow: none;
 }
+ input[type="checkbox" i]{
+    accent-color: green !important;
+}
