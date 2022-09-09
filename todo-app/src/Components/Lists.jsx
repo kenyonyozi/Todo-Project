@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Lists = ({ text, remove }) => {
+const Lists = ({ text, remove ,update , done}) => {
   return (
     <Card
       className=""
@@ -14,17 +14,27 @@ const Lists = ({ text, remove }) => {
         <Row className="align-items-center">
         <Col xs={1}>
             <div style={{  cursor: "pointer" }}>
-              <i
-                className="bi bi-check-circle"
-                onClick={remove}
+              
+             { done ?
+             <i
+                className="bi bi-check-circle" 
+                onClick={update}
+                style={{ color: "orange", marginLeft: "0rem" }}
+              ></i>
+              :
+
+               <i
+                className="bi bi-check-circle" 
+                onClick={update}
                 style={{ color: "", marginLeft: "0rem" }}
               ></i>
+             }
+
             </div>
           </Col>
           <Col xs={7}>
             <Card.Text style={{ fontSize: "medium", color: "#0C3823" }}>
               {text}
-              
             </Card.Text>
           </Col>
           <Col xs={1}>

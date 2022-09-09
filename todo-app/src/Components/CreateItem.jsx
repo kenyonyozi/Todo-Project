@@ -6,21 +6,47 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
+import {  ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import Lists from "./Lists";
+import './index.css';
 
 const CreateItem = () => {
   const [text, setText] = useState('');
   const [todo, setTodo] = useState([]);
+  const [done, setDone] = useState(false);
+ 
   //updating or adding new todo
   const [isUpdating, setUpdating] = useState('');
 
   const addUpdate = () => {
     if(isUpdating===''){
       //post
-      axios.post('https://app-todobackend.herokuapp.com/items', {text})
+      axios.post('https://app-todobackend.herokuapp.com/items', {text , done})
       .then((res) => {
-        console.log(res.data)
+        if(res.data.message && res.data.message === 'Todo added successfully'){
+          toast.success('Todo created Successful', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        }else{
+          toast.error('Todo creation failed', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+
+        }
         setText('')
       })
       .catch((err) => console.log(err))
@@ -37,16 +63,25 @@ const CreateItem = () => {
   
   //delete
   const deleteToDo = (_id) => { 
-    console.log(_id)
     axios.delete(`https://app-todobackend.herokuapp.com/items/deleteitem/${_id}`)
     .then((res) => {
-      console.log(res.data)
+      console.log(res.data.message)
     })
     .catch((err) => console.log(err))
   }
 
+  //update
+  const updateToDo = (_id) => {
+    console.log(_id)
+    setDone(true)
+
+
+  }
+  
+
   const input ={
     borderColor: "#249225",
+    outline:"none !important"
   }
 
   return (
@@ -71,18 +106,17 @@ const CreateItem = () => {
         <div style={{ margin: "2rem" }}>
           <Row className="align-items-center">
             <Col xs="auto" >
-                <InputGroup style={{minWidth: "89%"}}>
-                  <Form.Control  style={input} 
+              <InputGroup style={{minWidth: "89%" }}>
+                  <Form.Control className='control' style={input}
                   onChange={(e) => setText(e.target.value)}
                   value={text}
                     placeholder="Add a todo"
                     aria-label="Add a todo"
                   />
-                  <Button onClick={addUpdate} type= 'submit' variant="outline-success" >
+                  <Button className='btn' onClick={()=>addUpdate()} type= 'submit' variant="outline-success" >
                   +
                 </Button>
                 </InputGroup>
-                
             </Col>
           </Row>
         </div>
@@ -90,10 +124,14 @@ const CreateItem = () => {
           {todo.map(item => <Lists 
           key={item?._id}
           text={item?.text}
-          remove={()=>deleteToDo(item?._id)} />)}
+          remove={()=>deleteToDo(item?._id)}
+          update={()=>updateToDo(item?._id)} 
+          done={item?.done}
+          />)}
         </div>
         
       </Container>
+      <ToastContainer />
     </div>
   );
 };
