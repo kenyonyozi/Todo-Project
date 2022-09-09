@@ -19,7 +19,7 @@ const Lists = ({ text, remove ,update , done}) => {
              <i
                 className="bi bi-check-circle" 
                 onClick={update}
-                style={{ color: "green", marginLeft: "0rem" }}
+                style={{ color: "orange", marginLeft: "0rem" }}
               ></i>
               :
 

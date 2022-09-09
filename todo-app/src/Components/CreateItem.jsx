@@ -10,6 +10,7 @@ import {  ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import Lists from "./Lists";
+import './index.css';
 
 const CreateItem = () => {
   const [text, setText] = useState('');
@@ -22,7 +23,7 @@ const CreateItem = () => {
   const addUpdate = () => {
     if(isUpdating===''){
       //post
-      axios.post('http://localhost:4000/items', {text , done})
+      axios.post('https://app-todobackend.herokuapp.com/items', {text , done})
       .then((res) => {
         if(res.data.message && res.data.message === 'Todo added successfully'){
           toast.success('Todo created Successful', {
@@ -55,39 +56,16 @@ const CreateItem = () => {
   }
   //get
   useEffect(() =>{
-    axios.get('http://localhost:4000/items')
+    axios.get('https://app-todobackend.herokuapp.com/items')
     .then((res) => setTodo(res.data.data.items))
     .catch((err) => console.log(err))
   })
   
   //delete
   const deleteToDo = (_id) => { 
-    console.log(_id)
-    axios.delete(`http://localhost:4000/items/deleteitem/${_id}`)
+    axios.delete(`https://app-todobackend.herokuapp.com/items/deleteitem/${_id}`)
     .then((res) => {
       console.log(res.data.message)
-      if(res.data.message && res.data.message === 'Todo deleted successfully'){
-        toast.success('Todo deleted Successfully', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      }else{
-        toast.error('unable to delete todo', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-
-      }
     })
     .catch((err) => console.log(err))
   }
@@ -103,6 +81,7 @@ const CreateItem = () => {
 
   const input ={
     borderColor: "#249225",
+    outline:"none !important"
   }
 
   return (
@@ -127,18 +106,17 @@ const CreateItem = () => {
         <div style={{ margin: "2rem" }}>
           <Row className="align-items-center">
             <Col xs="auto" >
-                <InputGroup style={{minWidth: "89%"}}>
-                  <Form.Control  style={input} 
+              <InputGroup style={{minWidth: "89%" }}>
+                  <Form.Control className='control' style={input}
                   onChange={(e) => setText(e.target.value)}
                   value={text}
                     placeholder="Add a todo"
                     aria-label="Add a todo"
                   />
-                  <Button onClick={()=>addUpdate()} type= 'submit' variant="outline-success" >
+                  <Button className='btn' onClick={()=>addUpdate()} type= 'submit' variant="outline-success" >
                   +
                 </Button>
                 </InputGroup>
-                
             </Col>
           </Row>
         </div>
